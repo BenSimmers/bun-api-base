@@ -12,7 +12,7 @@ import healthRoutes from "./routes/health";
 import docsRoutes from "./routes/docs";
 
 const app = express();
-const port = process.env.PORT || 8080;
+const port = Number.parseInt(process.env.PORT ?? "8080") || 8080;
 
 app.use(cors());
 app.use(helmet());
@@ -25,6 +25,6 @@ app.use("/health", healthRoutes);
 app.use("/docs", docsRoutes);
 
 
-app.listen(port, () => {
+app.listen(port, (): void => {
   console.log(`Server started on http://localhost:${port}`);
 });
