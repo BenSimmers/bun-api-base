@@ -6,9 +6,10 @@ import bodyParser from "body-parser";
 import helmet from "helmet";
 import morgan from "morgan";
 
-// routes
-import userRoutes from "./routes/userRoutes";
-import healthRoutes from "./routes/health";
+import * as userServices from "./services/Users/users";
+
+import { createUserRouter } from "./routes/userRoutes";
+import { createHealthRouter } from "./routes/health";
 import docsRoutes from "./routes/docs";
 
 const app = express();
@@ -20,10 +21,11 @@ app.use(bodyParser.json());
 app.use(morgan("combined"));
 
 // Routes //
+const userRoutes = createUserRouter(userServices);
+const healthRoutes = createHealthRouter();
 app.use("/users", userRoutes);
 app.use("/health", healthRoutes);
 app.use("/docs", docsRoutes);
-
 
 app.listen(port, (): void => {
   console.log(`Server started on http://localhost:${port}`);
