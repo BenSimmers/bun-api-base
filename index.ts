@@ -20,9 +20,14 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(morgan("combined"));
 
-// Routes //
-const userRoutes = createUserRouter(userServices);
+
+// services
+const userService = new userServices.UserServiceImpl();
+
+// routes
+const userRoutes = createUserRouter(userService);
 const healthRoutes = createHealthRouter();
+
 app.use("/users", userRoutes);
 app.use("/", healthRoutes);
 app.use("/docs", docsRoutes);
