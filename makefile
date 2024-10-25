@@ -7,8 +7,9 @@ watch:
 bun-build:
 	bun build index.ts
 
+# Docker commands
 build-docker:
 	docker build -t bun-api-server .
 
 run-docker:
-	docker run -p 3000:3000 bun-api-server
+  docker run -p 8080:8080 bun-api-server

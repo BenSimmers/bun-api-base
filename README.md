@@ -1,33 +1,43 @@
-# bun-express
+# Project README
 
-To install dependencies:
+## Overview
+
+This project uses Bun to manage and run a TypeScript application. Below are the commands to run, watch, and build the application, as well as to build and run the Docker container.
+
+## Commands
+
+### Running the Application
+
+To run the application, use the following command:
 
 ```bash
-bun install
+bun index.ts
 ```
 
-To run the server:
+### Watching the Application
 
-```bash
-bun run index.ts
-```
-
-To watch the server:
+To watch the application, use the following command:
 
 ```bash
 bun watch index.ts
 ```
 
-To build the server:
+### Building the Application
+
+To build the application, use the following command:
 
 ```bash
-bun build --entrypoints ./index.ts --outdir ./dist --smol
+bun build index.ts
 ```
 
-To run the server in development mode:
+### Building and Running the Docker Container
+
+To build and run the Docker container, use the following command:
 
 ```bash
-bun --watch --smol run ./index.ts
+docker build -t bun-api-server .
 ```
 
-This project was created using `bun init` in bun v1.0.20. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+```bash
+docker run -p 8080:8080 bun-api-server
+```
