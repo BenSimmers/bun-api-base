@@ -24,7 +24,7 @@ app.use(morgan("combined"));
 const userRoutes = createUserRouter(userServices);
 const healthRoutes = createHealthRouter();
 app.use("/users", userRoutes);
-app.use("/health", healthRoutes);
+app.use("/", healthRoutes);
 app.use("/docs", docsRoutes);
 
 app.listen(port, (): void => {
