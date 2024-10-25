@@ -13,7 +13,7 @@ const options = {
       },
     ],
   },
-  apis: ["index.ts"],
+  apis: ["index.ts", "routes/userRoutes.ts"],
 };
 
 export default options;
