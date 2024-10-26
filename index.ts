@@ -20,11 +20,16 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(morgan("combined"));
 
-// Routes //
-const userRoutes = createUserRouter(userServices);
+
+// services
+const userService = new userServices.UserServiceImpl();
+
+// routes
+const userRoutes = createUserRouter(userService);
 const healthRoutes = createHealthRouter();
+
 app.use("/users", userRoutes);
-app.use("/health", healthRoutes);
+app.use("/", healthRoutes);
 app.use("/docs", docsRoutes);
 
 app.listen(port, (): void => {
