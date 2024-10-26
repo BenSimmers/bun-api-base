@@ -1,5 +1,5 @@
 CONTAINER_PROVIDER = docker
-NTRYPOINT = index.ts
+ENTRYPOINT = index.ts
 OUTPUT_DIR = dist
 IMAGE_NAME = bun-api-server
 PORT = 8080
