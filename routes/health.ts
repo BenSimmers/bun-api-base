@@ -1,12 +1,7 @@
 import { Router, type Request, type Response } from "express";
-import { neon } from "@neondatabase/serverless";
-import { isCallExpression } from "typescript";
+import { db } from "../database/database";
 
 const router = Router();
-
-const caller = "gpes here";
-
-const sql = neon(caller);
 
 export function createHealthRouter() {
   router.get("/", async (req: Request, res: Response) =>
@@ -14,11 +9,9 @@ export function createHealthRouter() {
   );
 
   router.get("/db", async (_, res) => {
+    const items = await db("users").select("*");
 
-
-    const response = await sql`SELECT version()`;
-    const { version } = response[0];
-    res.json({ version });
+    res.status(200).json({ items });
   });
 
   return router;

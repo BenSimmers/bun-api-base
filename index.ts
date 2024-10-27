@@ -15,11 +15,37 @@ import docsRoutes from "./routes/docs";
 const app = express();
 const port = Number.parseInt(process.env.PORT ?? "8080") || 8080;
 
-app.use(cors());
-app.use(helmet());
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        imgSrc: ["'self'", "data:"],
+        connectSrc: ["'self'"],
+        fontSrc: ["'self'"],
+        objectSrc: ["'none'"],
+        mediaSrc: ["'self'"],
+        frameSrc: ["'self'"],
+        childSrc: ["'self'"],
+        formAction: ["'self'"],
+        frameAncestors: ["'self'"],
+        blockAllMixedContent: [],
+        upgradeInsecureRequests: [],
+      },
+    },
+  })
+);
 app.use(bodyParser.json());
 app.use(morgan("combined"));
-
 
 // services
 const userService = new userServices.UserServiceImpl();
