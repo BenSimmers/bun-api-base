@@ -11,6 +11,7 @@ import * as userServices from "./services/Users/users";
 import { createUserRouter } from "./routes/userRoutes";
 import { createHealthRouter } from "./routes/health";
 import docsRoutes from "./routes/docs";
+import errorHandler from "./util/errorHandler";
 
 const app = express();
 const port = Number.parseInt(process.env.PORT ?? "8080") || 8080;
@@ -46,6 +47,7 @@ app.use(
 );
 app.use(bodyParser.json());
 app.use(morgan("combined"));
+app.use(errorHandler);
 
 // services
 const userService = new userServices.UserServiceImpl();
