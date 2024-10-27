@@ -4,8 +4,7 @@ const options = {
     info: {
       title: "Bun Express Api Template",
       version: "0.1.0",
-      description:
-        "This is a simple API for learning how to document an API with Swagger",
+      description: "Documentation for the Bun Express Api Template",
     },
     servers: [
       {
@@ -13,7 +12,12 @@ const options = {
       },
     ],
   },
-  apis: ["index.ts", "routes/userRoutes.ts", "routes/health.ts", "routes/docs.ts"],
+  apis: [
+    "index.ts",
+    "routes/userRoutes.ts",
+    "routes/health.ts",
+    "routes/docs.ts",
+  ],
 };
 
 export default options;

@@ -4,6 +4,38 @@ import type { UserService } from "../services/Users/model";
 const router = Router();
 
 export function createUserRouter(userService: UserService) {
+  /**
+   * @swagger
+   * tags:
+   *   name: Users
+   *   description: User management API
+   */
+
+  /**
+   * @swagger
+   * /:
+   *   get:
+   *     summary: Get all users
+   *     tags: [Users]
+   *     responses:
+   *       200:
+   *         description: List of users
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: array
+   *               items:
+   *                 type: object
+   *                 properties:
+   *                   id:
+   *                     type: integer
+   *                   name:
+   *                     type: string
+   *                   age:
+   *                     type: integer
+   *       500:
+   *         description: Internal Server Error
+   */
   router.get("/", async (req: Request, res: Response) => {
     try {
       const userList = await userService.getUsers();
@@ -13,6 +45,40 @@ export function createUserRouter(userService: UserService) {
     }
   });
 
+  /**
+   * @swagger
+   * /:
+   *   post:
+   *     summary: Create a new user
+   *     tags: [Users]
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             type: object
+   *             properties:
+   *               name:
+   *                 type: string
+   *               age:
+   *                 type: integer
+   *     responses:
+   *       201:
+   *         description: User created successfully
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 id:
+   *                   type: integer
+   *                 name:
+   *                   type: string
+   *                 age:
+   *                   type: integer
+   *       400:
+   *         description: Bad Request
+   */
   router.post("/", async (req: Request, res: Response) => {
     const { name, age } = req.body;
     try {
@@ -23,6 +89,38 @@ export function createUserRouter(userService: UserService) {
     }
   });
 
+  /**
+   * @swagger
+   * /{id}:
+   *   get:
+   *     summary: Get a user by ID
+   *     tags: [Users]
+   *     parameters:
+   *       - name: id
+   *         in: path
+   *         required: true
+   *         description: ID of the user to retrieve
+   *         schema:
+   *           type: integer
+   *     responses:
+   *       200:
+   *         description: User found
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 id:
+   *                   type: integer
+   *                 name:
+   *                   type: string
+   *                 age:
+   *                   type: integer
+   *       404:
+   *         description: User not found
+   *       500:
+   *         description: Internal Server Error
+   */
   router.get("/:id", async (req: Request, res: Response) => {
     const { id } = req.params;
     try {
