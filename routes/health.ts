@@ -4,14 +4,22 @@ import { db } from "../database/database";
 const router = Router();
 
 export function createHealthRouter() {
-  router.get("/", async (req: Request, res: Response) =>
-    res.status(200).json({ message: "Server is healthy" })
-  );
+  router.get("/", async (req: Request, res: Response) => {
+    const serverAndDbHealth = {
+      server: false,
+      db: false,
+    };
 
-  router.get("/db", async (_, res) => {
-    const items = await db("users").select("*");
+    try {
+      await db.raw("SELECT 1");
+      serverAndDbHealth.db = true;
+    } catch (error) {
+      console.error("Database health check failed:", error);
+      return res.status(503).json({ ...serverAndDbHealth, error: "Database unavailable" });
+    }
 
-    res.status(200).json({ items });
+    serverAndDbHealth.server = true;
+    return res.status(200).json(serverAndDbHealth);
   });
 
   return router;
