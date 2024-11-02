@@ -5,6 +5,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import helmet from "helmet";
 import morgan from "morgan";
+import rateLimit from "express-rate-limit";
 
 import * as userServices from "./services/Users/users";
 
@@ -48,6 +49,13 @@ app.use(
 app.use(bodyParser.json());
 app.use(morgan("combined"));
 app.use(errorHandler);
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // handle 100 requests per 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+});
+
+app.use(limiter);
 
 // services
 const userService = new userServices.UserServiceImpl();
