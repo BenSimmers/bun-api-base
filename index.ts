@@ -58,7 +58,8 @@ const limiter = rateLimit({
 app.use(limiter);
 
 // services
-const userService = new userServices.UserServiceImpl();
+const usersRepository = new userServices.usersRepository();
+const userService = new userServices.UserServiceImpl(usersRepository);
 
 // routes
 const userRoutes = createUserRouter(userService);
