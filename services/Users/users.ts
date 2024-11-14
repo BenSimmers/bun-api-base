@@ -27,13 +27,11 @@ export class UserServiceImpl implements UserService {
   constructor(private readonly repository: usersRepository) {}
 
   async getUsers(): Promise<User[]> {
-    // const items: User[] = await db("users").select("*");
     const items = await this.repository.getUsers();
     return items;
   }
 
   async getUserById(id: number): Promise<User | undefined> {
-    // const [user]: User[] = await db("users").select("*").where({ id });
     const user = await this.repository.getUserById(id);
     return user;
   }
